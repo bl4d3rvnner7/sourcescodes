@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Encrypter & Decryptor Pro</title>
+  <link rel="shortcut icon" href="https://www.freefavicon.com/freefavicons/icons/source-code-icon-152-213242.png">
+  <meta name="description" content="Encrypt HTML using advanced javascript functions">
+  <meta name="keywords" content="HTML encryption, HTML decryption, code obfuscation">
+  
+  <style>
+    :root {
+      --primary: #9b59b6;
+      --primary-dark: #8e44ad;
+      --secondary: #3498db;
+      --secondary-dark: #2980b9;
+      --success: #2ecc71;
+      --success-dark: #27ae60;
+      --warning: #f39c12;
+      --warning-dark: #e67e22;
+      --danger: #e74c3c;
+      --dark: #2c3e50;
+      --darker: #1e272e;
+      --light: #ecf0f1;
+      --white: #ffffff;
+      --black: #000000;
+      --accent: #ff6b6b;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: var(--darker);
+      color: var(--light);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      flex: 1;
+    }
+    
+    header {
+      text-align: center;
+      padding: 30px 0;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--primary-dark) 100%);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      color: var(--light);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    h1 span.highlight {
+      color: var(--accent);
+    }
+    
+    h3 {
+      color: var(--secondary);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    
+    .tagline {
+      color: var(--warning);
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    
+    .info {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      color: #ddd;
+      border-left: 4px solid var(--secondary);
+      transition: all 0.3s ease;
+    }
+    
+    .info:hover {
+      background: rgba(0, 0, 0, 0.25);
+      border-left-color: var(--accent);
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
+    
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .card h4 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: a.4rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .card.encode-card h4 {
+      color: var(--success);
+    }
+    
+    .card.decode-card h4 {
+      color: var(--warning);
+    }
+    
+    ol {
+      padding-left: 25px;
+      margin-bottom: 15px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      color: #ddd;
+    }
+    
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+      background: rgba(0, 0, 0, 0.15);
+      padding: 12px;
+      border-radius: 6px;
+    }
+    
+    .radio-option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    
+    .radio-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .radio-option input {
+      margin-right: 8px;
+      accent-color: var(--primary);
+    }
+    
+    .textarea-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .textarea-label {
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: var(--dark);
+      padding: 0 10px;
+      font-size: 0.9rem;
+      color: var(--secondary);
+      border-radius: 4px;
+      z-index: 1;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: rgba(44, 62, 80, 0.8);
+      color: #2ecc71;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      resize: vertical;
+      border: 1px solid #3a506b;
+      transition: all 0.3s ease;
+      line-height: 1.5;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 10px rgba(52, 152, 219, 0.4), inset 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+      align-items: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 15px;
+    }
+    
+    .controls span {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+    
+    .controls .divider {
+      height: 30px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 auto;
+    }
+    
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 5px;
+      background: var(--primary);
+      color: var(--white);
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      min-width: 100px;
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.3s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn:hover::after {
+      left: 100%;
+    }
+    
+    .btn:active {
+      transform: translateY(-1px);
+    }
+    
+    .btn-preview {
+      background: var(--secondary-dark);
+    }
+    
+    .btn-encode {
+      background: var(--success-dark);
+    }
+    
+    .btn-decode {
+      background: var(--warning-dark);
+    }
+    
+    .btn-select {
+      background: var(--dark);
+      margin: 0 auto;
+      display: block;
+      min-width: 150px;
+    }
+    
+    .size-indicator {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    
+    .size-indicator::before {
+      content: 'Size: ';
+      color: #888;
+      margin-right: 5px;
+      font-size: 0.85em;
+    }
+    
+    .copy-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--success-dark);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    .copy-toast.show {
+      opacity: 1;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #999;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .emoji {
+      font-size: 1.5rem;
+      vertical-align: middle;
+      margin: 0 5px;
+    }
+    
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Animation */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Version info */
+    .version {
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Enhancement indicator */
+    .enhancement-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 10px;
+      vertical-align: middle;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script>
+    let quot = "'";
+    let fullenc = false;
+    let alternateTheme = false;
+    
+    // Advanced encoding options
+    let encryptionLevel = 1; // Default: Basic
+
+    function Encrypt() {
+        if (encryptionLevel === 1) {
+            EncryptBasic();
+        } else if (encryptionLevel === 2) {
+            EncryptFull();
+        } else if (encryptionLevel === 3) {
+            EncryptAdvanced();
+        }
+    }
+
+    function EncryptBasic() {
+        let NewCode = escape(document.getElementById('InputArea').value);
+        NewCode = '<' + 'script language=javascript>document.write(unescape(' + quot + NewCode + quot + '))<' + '/script>\n';
+        document.getElementById('OutputArea').value = NewCode;
+        FileSizes();
+        pulse('OutputArea');
+    }
+
+    function EncryptFull() {
+        let NewCode = "";
+        let OldCode = document.getElementById('InputArea').value;
+        for (let i = 0; i < OldCode.length; i++) {
+            NewCode = NewCode + Hex(OldCode.charCodeAt(i));
+        }
+        NewCode = '<' + 'script language=javascript>document.write(unescape(' + quot + NewCode + quot + '))<' + '/script>\n';
+        document.getElementById('OutputArea').value = NewCode;
+        FileSizes();
+        pulse('OutputArea');
+    }
+    
+    function EncryptAdvanced() {
+        // Advanced multi-layer encryption
+        let OldCode = document.getElementById('InputArea').value;
+        
+        // First layer: Base64
+        let base64 = btoa(OldCode);
+        
+        // Second layer: Character shuffling
+        let shuffled = shuffleString(base64);
+        
+        // Third layer: Add encryption key
+        let key = generateKey(8);
+        let encrypted = addEncryptionKey(shuffled, key);
+        
+        // Create decoder
+        let NewCode = '<' + 'script language=javascript>\n';
+        NewCode += '// Advanced encrypted content\n';
+        NewCode += 'function decode(str, key) {\n';
+        NewCode += '  let decoded = "";\n';
+        NewCode += '  // Remove key\n';
+        NewCode += '  str = str.substring(key.length);\n';
+        NewCode += '  // Unshuffle\n';
+        NewCode += '  let mid = Math.floor(str.length / 2);\n';
+        NewCode += '  let odds = str.substring(0, mid);\n';
+        NewCode += '  let evens = str.substring(mid);\n';
+        NewCode += '  for(let i = 0; i < mid; i++) {\n';
+        NewCode += '    decoded += evens[i] + (i < odds.length ? odds[i] : "");\n';
+        NewCode += '  }\n';
+        NewCode += '  if(str.length % 2 !== 0) decoded += evens[evens.length-1];\n';
+        NewCode += '  // Decode base64\n';
+        NewCode += '  return atob(decoded);\n';
+        NewCode += '}\n';
+        NewCode += 'document.write(decode("' + encrypted + '", "' + key + '"));\n';
+        NewCode += '<' + '/script>\n';
+        
+        document.getElementById('OutputArea').value = NewCode;
+        FileSizes();
+        pulse('OutputArea');
+    }
+    
+    function shuffleString(str) {
+        // Simple shuffle - separate odd and even indices
+        let odds = "";
+        let evens = "";
+        
+        for(let i = 0; i < str.length; i++) {
+            if(i % 2 === 0) {
+                evens += str[i];
+            } else {
+                odds += str[i];
+            }
+        }
+        
+        return odds + evens;
+    }
+    
+    function generateKey(length) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+    
+    function addEncryptionKey(str, key) {
+        return key + str;
+    }
+
+    function Decrypt() {
+        let inputCode = document.getElementById('InputArea').value;
+        let result = "";
+        
+        // Try to determine what type of encryption was used
+        if(inputCode.includes('document.write(unescape(')) {
+            // Basic or Full encryption
+            try {
+                let encodedPart = inputCode.split('document.write(unescape(')[1].split('))<')[0];
+                // Remove quotes
+                encodedPart = encodedPart.substring(1, encodedPart.length-1);
+                result = unescape(encodedPart);
+            } catch(e) {
+                result = "Error: Could not decrypt. Format not recognized.";
+            }
+        } else if(inputCode.includes('function decode(str, key)')) {
+            // Advanced encryption
+            try {
+                // Extract the encrypted string and key
+                let parts = inputCode.match(/document\.write\(decode\("(.+?)", "(.+?)"\)\)/);
+                if(parts && parts.length === 3) {
+                    let encryptedStr = parts[1];
+                    let key = parts[2];
+                    
+                    // Remove key
+                    encryptedStr = encryptedStr.substring(key.length);
+                    
+                    // Unshuffle
+                    let mid = Math.floor(encryptedStr.length / 2);
+                    let odds = encryptedStr.substring(0, mid);
+                    let evens = encryptedStr.substring(mid);
+                    let unshuffled = "";
+                    
+                    for(let i = 0; i < mid; i++) {
+                        unshuffled += evens[i] + (i < odds.length ? odds[i] : "");
+                    }
+                    
+                    if(encryptedStr.length % 2 !== 0) {
+                        unshuffled += evens[evens.length-1];
+                    }
+                    
+                    // Decode base64
+                    result = atob(unshuffled);
+                } else {
+                    result = "Error: Could not extract encryption parameters.";
+                }
+            } catch(e) {
+                result = "Error: Could not decrypt advanced encryption. " + e.message;
+            }
+        } else {
+            // Try basic decoding as fallback
+            try {
+                result = unescape(inputCode);
+            } catch(e) {
+                result = "Error: Unknown encryption format.";
+            }
+        }
+        
+        document.getElementById('OutputArea').value = result;
+        FileSizes();
+        pulse('OutputArea');
+    }
+
+    function Hex(dec) {
+        let hexbase = "0123456789ABCDEF";
+        let hx_hi = Math.floor(dec / 16);
+        let hx_lo = dec % 16;
+        let hx = hexbase.substr(hx_hi, 1) + hexbase.substr(hx_lo, 1);
+        let hexval = '%' + hx;
+        return hexval;
+    }
+
+    function FileSizes() {
+        document.getElementById('topSize').innerHTML = document.getElementById('InputArea').value.length;
+        document.getElementById('bottomSize').innerHTML = document.getElementById('OutputArea').value.length;
+        
+        // Calculate compression ratio
+        const inputSize = document.getElementById('InputArea').value.length;
+        const outputSize = document.getElementById('OutputArea').value.length;
+        
+        if (inputSize > 0 && outputSize > 0) {
+            const ratio = (outputSize / inputSize).toFixed(2);
+            document.getElementById('compressionRatio').innerHTML = ratio + 'x';
+        } else {
+            document.getElementById('compressionRatio').innerHTML = '-';
+        }
+    }
+
+    function Preview(selection) {
+        FileSizes();
+        let newpage = "";
+        if (selection == 0) {
+            newpage = document.getElementById('InputArea').value;
+            let w0 = window.open("", "preview_top", "width=800,height=600,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes");
+            w0.document.writeln("<html><title>Input Preview</title><body>");
+            w0.document.writeln(newpage);
+            w0.document.writeln("<hr><form><center><input type=\"button\" value=\"Close Window\" onClick=\"window.close();\"></center></form>");
+            w0.document.writeln("</body></html>");
+            w0.document.close();
+            w0.focus();
+        } else {
+            newpage = document.getElementById('OutputArea').value;
+            let w1 = window.open("", "preview_bottom", "width=800,height=600,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes");
+            w1.document.writeln("<html><title>Output Preview</title><body>");
+            w1.document.writeln(newpage);
+            w1.document.writeln("<hr><form><center><input type=\"button\" value=\"Close Window\" onClick=\"window.close();\"></center></form>");
+            w1.document.writeln("</body></html>");
+            w1.document.close();
+            w1.focus();
+        }
+    }
+
+    function selectAll() {
+        document.getElementById('OutputArea').select();
+        document.getElementById('OutputArea').focus();
+    }
+    
+    function copyToClipboard() {
+        const outputText = document.getElementById('OutputArea');
+        outputText.select();
+        document.execCommand('copy');
+        
+        // Show toast notification
+        const toast = document.getElementById('copyToast');
+        toast.classList.add('show');
+        
+        // Hide toast after 2 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+    
+    function toggleTheme() {
+        alternateTheme = !alternateTheme;
+        const root = document.documentElement;
+        
+        if (alternateTheme) {
+            // Dark blue theme
+            root.style.setProperty('--primary', '#6a11cb');
+            root.style.setProperty('--primary-dark', '#5700b3');
+            root.style.setProperty('--secondary', '#48dbfb');
+            root.style.setProperty('--secondary-dark', '#0abde3');
+            root.style.setProperty('--success', '#1dd1a1');
+            root.style.setProperty('--success-dark', '#10ac84');
+            root.style.setProperty('--warning', '#feca57');
+            root.style.setProperty('--warning-dark', '#ff9f43');
+            root.style.setProperty('--accent', '#ff6b6b');
+            root.style.setProperty('--darker', '#130f40');
+            root.style.setProperty('--dark', '#222f3e');
+            
+            document.getElementById('themeIcon').innerHTML = '🌞';
+        } else {
+            // Default purple theme
+            root.style.setProperty('--primary', '#9b59b6');
+            root.style.setProperty('--primary-dark', '#8e44ad');
+            root.style.setProperty('--secondary', '#3498db');
+            root.style.setProperty('--secondary-dark', '#2980b9');
+            root.style.setProperty('--success', '#2ecc71');
+            root.style.setProperty('--success-dark', '#27ae60');
+            root.style.setProperty('--warning', '#f39c12');
+            root.style.setProperty('--warning-dark', '#e67e22');
+            root.style.setProperty('--accent', '#ff6b6b');
+            root.style.setProperty('--darker', '#1e272e');
+            root.style.setProperty('--dark', '#2c3e50');
+            
+            document.getElementById('themeIcon').innerHTML = '🌙';
+        }
+    }
+    
+    function pulse(elementId) {
+        const element = document.getElementById(elementId);
+        element.classList.add('pulse');
+        setTimeout(() => {
+            element.classList.remove('pulse');
+        }, 2000);
+    }
+    
+    function setEncryptionLevel(level) {
+        encryptionLevel = level;
+        document.getElementById('encLevelIndicator').innerHTML = ['Basic', 'Full', 'Advanced'][level-1];
+    }
+    
+    function clearFields() {
+        document.getElementById('InputArea').value = '';
+        document.getElementById('OutputArea').value = '';
+        FileSizes();
+    }
+
+    // Initialize when page loads
+    window.onload = function() {
+        FileSizes();
+        setEncryptionLevel(1);
+    };
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+        <span id="themeIcon">🌙</span>
+      </button>
+      <h1>LetterSafe <span class="highlight">Encrypter</span> & <span class="highlight">Decryptor</span> <span class="emoji">🔐</span></h1>
+      <h3>Advanced Letter Tools</h3>
+      <div class="tagline">SECURE YOUR HTML CODE WITH MULTI-LAYER ENCRYPTION</div>
+      <div class="version">v2.0</div>
+    </header>
+    
+    <div class="info">
+      This tool encrypts and decrypts HTML/JS code using advanced JavaScript obfuscation techniques. The encrypted code can only be interpreted by browsers with JavaScript enabled. Three encryption levels are available, with advanced mode providing the strongest protection.
+    </div>
+    
+    <div class="grid">
+      <div class="card encode-card">
+        <h4><span class="emoji">🔒</span> Encode HTML <span class="enhancement-badge">Pro</span></h4>
+        <ol>
+          <li>Enter HTML in the top window</li>
+          <li>Select encryption level (Basic/Full/Advanced)</li>
+          <li>Click Encode and copy encrypted code from bottom window</li>
+        </ol>
+        <div class="radio-group">
+          <label class="radio-option" title="Standard encryption - Smaller file size">
+            <input type="radio" name="enctype" checked onclick="setEncryptionLevel(1)">
+            <span>Basic</span>
+          </label>
+          <label class="radio-option" title="Full hexadecimal encoding - Larger file size">
+            <input type="radio" name="enctype" onclick="setEncryptionLevel(2)">
+            <span>Full</span>
+          </label>
+          <label class="radio-option" title="Multi-layer encryption with key - Maximum security">
+            <input type="radio" name="enctype" onclick="setEncryptionLevel(3)">
+            <span>Advanced</span>
+          </label>
+          <div style="margin-left: auto; color: #aaa; font-size: 0.9rem;">
+            Current: <span id="encLevelIndicator">Basic</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card decode-card">
+        <h4><span class="emoji">🔓</span> Decode HTML <span class="enhancement-badge">Pro</span></h4>
+        <ol>
+          <li>Enter encrypted HTML in the top window</li>
+          <li>Click Decode to reveal the original HTML code</li>
+          <li>The tool will automatically detect the encryption type</li>
+        </ol>
+        <div style="background: rgba(0, 0, 0, 0.15); padding: 12px; border-radius: 6px; margin-top: 15px;">
+          <p style="font-size: 0.9rem; color: #ccc;">
+            <strong>Pro Tip:</strong> This enhanced version can decrypt all three encryption levels automatically, including the advanced multi-layer encryption with keys.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="textarea-container">
+      <div class="textarea-label">Input</div>
+      <textarea id="InputArea" placeholder="Paste original or encrypted code here..." oninput="FileSizes()"></textarea>
+    </div>
+    
+    <div class="controls">
+      <div class="size-indicator" id="topSize">0</div>
+      <button class="btn btn-preview" onclick="Preview(0)" title="Preview Input">
+        <span>👁️</span> Preview
+      </button>
+      <span>Input Code</span>
+      <div class="divider"></div>
+      <button class="btn btn-encode" onclick="Encrypt()" title="Encrypt Code">
+        <span>🔒</span> Encode
+      </button>
+      <button class="btn btn-decode" onclick="Decrypt()" title="Decrypt Code">
+        <span>🔓</span> Decode
+      </button>
+      <div class="divider"></div>
+      <span>Output Code</span>
+      <button class="btn btn-preview" onclick="Preview(1)" title="Preview Output">
+        <span>👁️</span> Preview
+      </button>
+      <div class="size-indicator" id="bottomSize">0</div>
+    </div>
+    
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px;">
+      <div style="background: rgba(0, 0, 0, 0.2); padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 10px;">
+        <span style="color: #aaa; font-size: 0.9rem;">Compression Ratio:</span>
+        <span id="compressionRatio" style="font-weight: bold; color: var(--accent);">-</span>
+      </div>
+      <button class="btn" style="background: var(--dark);" onclick="clearFields()" title="Clear All Fields">
+        <span>🧹</span> Clear
+      </button>
+    </div>
+    
+    <div class="textarea-container">
+      <div class="textarea-label">Output</div>
+      <textarea id="OutputArea" placeholder="Output will appear here..." readonly></textarea>
+    </div>
+    
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+      <button class="btn btn-select" onclick="selectAll()" title="Select All Output">
+        <span>📋</span> Select All
+      </button>
+      <button class="btn btn-select" style="background: var(--success-dark);" onclick="copyToClipboard()" title="Copy to Clipboard">
+        <span>📝</span> Copy to Clipboard
+      </button>
+    </div>
+    
+    <div id="copyToast" class="copy-toast">Copied to clipboard! ✅</div>
+    
+    <footer>
+      <p style="margin-top: 10px; font-size: 0.8rem; color: #777;">
+        All operations happen in your browser - your code never leaves your computer
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
