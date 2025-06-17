@@ -4,10 +4,10 @@ Welcome to the project source codes! This repository houses a collection of sour
 
 ## Contents 📚
 
-1. [Description](#description)
-2. [Getting Started](#getting-started)
-3. [Usage](#usage)
-4. [Contributing](#contributing)
+1. [Description](#description-)
+2. [Getting Started](#getting-started-)
+3. [Usage](#usage-)
+4. [Contributing](#contributing-)
 
 # Description 📝
 
