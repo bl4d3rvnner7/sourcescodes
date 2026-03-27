@@ -1,41 +1,117 @@
-# Project Source Codes 📁🔬
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?size=32&duration=2500&pause=1200&color=00F0FF&center=true&vCenter=true&width=900&lines=Source+Code+Collection+%26+Analysis" />
+</p>
 
-Welcome to the project source codes! This repository houses a collection of source code files that are meant to be shared with everyone. Whether you're a developer, a student, or simply curious about coding, you've come to the right place.
+<br>
 
-## Contents 📚
+<p align="center">
+  <img src="https://img.shields.io/badge/Focus-Reverse%20Engineering-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Type-Code%20Collection-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Purpose-Research%20%26%20Analysis-green?style=for-the-badge"/>
+</p>
 
-1. [Description](#description-)
-2. [Getting Started](#getting-started-)
-3. [Usage](#usage-)
-4. [Contributing](#contributing-)
+<p align="center">
+  <img src="https://img.shields.io/github/stars/bl4d3rvnner7/sourcescodes?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/last-commit/bl4d3rvnner7/sourcescodes?style=for-the-badge"/>
+</p>
 
-# Description 📝
+---
 
-> ⚠️ **Disclaimer:** This repository contains previously malicious code that has been reversed and neutralized.  
-> It is provided **strictly for educational, analytical, and research purposes**.  
+## <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" width="18"/> Overview
 
-The source code files in this repository cover a wide range of topics and programming languages. You'll find code examples, algorithms, and implementations that can serve as a valuable resource for learning and exploration. Feel free to browse through the files and delve into the exciting world of programming.
 
-Please note the following facts about this repository:
 
-- The repository will contain source codes only. 📄
-- The source codes provided here may have been malicious in the past, but they have been reversed and are no longer harmful.
-- I (bl4d3rvnner7) have personally reversed the codes.
-- I am not responsible for any misuse of the source codes. Please use them responsibly.
-- You are allowed to fork the repository and report any errors or issues by creating a new issue.
+This repository is a curated collection of source code gathered for **analysis, reverse engineering, and research purposes**.
 
-# Getting Started 🚀
+It includes:
 
-To get started with the project source codes, simply clone or download the repository to your local machine. Make sure you have the necessary software and development environment set up for the specific programming language you wish to explore.
+- Decompiled and reversed code  
+- Obfuscated / deobfuscated samples  
+- Real-world implementations  
+- Experimental and raw code  
 
-# Usage 💡
+---
 
-The source code files are organized into folders based on their respective programming languages or topics. Navigate through the folders to find the specific code files you're interested in. Each file contains comments and instructions to guide you through its purpose and usage.
+<br>
 
-Feel free to experiment, modify, and build upon the existing code. Learning by doing is a great way to enhance your programming skills and creativity.
+## <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/gnubash.svg" width="18"/> Purpose
 
-# Contributing 🤝
+The goal of this repository is:
 
-Contributions to this repository are more than welcome! If you have your own code snippets, algorithms, or improvements to the existing code, feel free to submit a pull request. Together, we can create a rich and diverse collection of source code for the benefit of everyone.
+- Understanding complex code structures  
+- Identifying patterns in real-world software  
+- Practicing reverse engineering techniques  
+- Improving analytical thinking in programming  
 
-Happy researching!
+---
+
+<br>
+
+## <img src="https://unpkg.com/lucide-static@1.7.0/icons/alert-triangle.svg" width="18"/> Disclaimer
+
+> This repository may contain code that was originally associated with malicious or unethical use cases.
+
+- Provided strictly for **educational and research purposes**
+- Not intended for misuse
+- No guarantee of safety
+- Use at your own responsibility  
+
+---
+
+<br>
+
+## <img src="https://unpkg.com/lucide-static@1.7.0/icons/folder.svg" width="18"/> Structure
+
+The repository may contain:
+
+- Source code dumps  
+- Reversed projects  
+- Snippets from various languages  
+- Experimental files  
+
+---
+
+<br>
+
+## <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linux.svg" width="18"/> Safe Usage
+
+If you analyze this code:
+
+- Use a virtual machine  
+- Avoid running unknown code directly  
+- Work in isolated environments  
+- Do not use real credentials  
+
+---
+
+<br>
+
+## <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg" width="18"/> Contributing
+
+Contributions are welcome:
+
+- Code cleanup  
+- Documentation  
+- Reverse engineering notes  
+- Refactoring  
+
+---
+
+<br>
+
+## <img src="https://unpkg.com/lucide-static@1.7.0/icons/code.svg" width="18"/> Language Stats
+
+<p align="center">
+  <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=bl4d3rvnner7&layout=compact&theme=dark&hide_border=true"/>
+</p>
+
+---
+
+## Final Note
+
+This repository reflects technical curiosity and exploration.
+
+Not everything here is clean.  
+Not everything is structured.  
+
+But everything here can be understood.
